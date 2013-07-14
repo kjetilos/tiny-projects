@@ -8,18 +8,26 @@ bool is_vowel(wchar_t c)
 	return vowels.find(c) != std::wstring::npos;
 }
 
+unsigned int count_vowels(const std::wstring& word)
+{
+	unsigned int count = 0;
+	for (wchar_t c : word)
+		if (is_vowel(c))
+			count++;
+	return count;
+}
+
 int main(int argc, char* argv[])
 {
 	setlocale(LC_ALL, "");
 
-	std::wstring s;
-	std::wcin >> s;
-
 	unsigned int num_vowels = 0;
-	for (wchar_t c : s)
-		if (is_vowel(c))
-			num_vowels++;
 
+	std::wstring s;
+	while (std::wcin >> s)
+	{
+		num_vowels += count_vowels(s);
+	}
 
 	std::wcout << num_vowels << " Vowel";
 	if (num_vowels != 1)
