@@ -2,6 +2,7 @@
 #include <string>
 #include <unordered_set>
 #include <locale>
+#include <iterator>
 
 std::unordered_set<wchar_t> vowels;
 
@@ -24,16 +25,6 @@ bool is_vowel(wchar_t c)
 	return vowels.find(c) != vowels.end();
 }
 
-unsigned int count_vowels(const std::wstring& word)
-{
-	unsigned int count = 0;
-	for (wchar_t c : word)
-		if (is_vowel(c))
-			count++;
-
-	return count;
-}
-
 int main(int argc, char* argv[])
 {
 	setlocale(LC_ALL, "");
@@ -42,10 +33,15 @@ int main(int argc, char* argv[])
 
 	unsigned int num_vowels = 0;
 
-	std::wstring s;
-	while (std::wcin >> s)
+	std::istreambuf_iterator<wchar_t> in(std::wcin);
+	std::istreambuf_iterator<wchar_t> eos;
+
+	while (in != eos)
 	{
-		num_vowels += count_vowels(s);
+		wchar_t c = *in;
+		if (is_vowel(c))
+			num_vowels++;
+		++in;
 	}
 
 	std::wcout << num_vowels << " Vowel";
