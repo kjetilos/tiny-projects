@@ -1,0 +1,9 @@
+Alternative designs
+
+1. Use istream_iterator for input
+
+2. Use bitset for the is_vowel check
+  Using bitset with 0xffffffff as the size argument actually increased the build time by several seconds and it wasts a lot of memory where fast binary search can be used instead of a plain table lookup.
+
+3. Use switch case for vowel check
+  The switch case will be really verbose and that is not something I want in the code.
